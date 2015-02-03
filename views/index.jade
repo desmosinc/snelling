@@ -1,0 +1,47 @@
+extends ./layout
+
+block content
+    .container
+        .row
+            .col-md-8
+                .graph
+                    #calculator.center-block
+                        .loading.center-block
+                            p Loading...
+                            img(src='/images/spinner.gif')
+                    form#import-form.form-horizontal
+                        .input-group
+                            .import-button.input-group-addon(title='Import Graph', data-toggle='tooltip', data-placememt='top')
+                                span.glyphicon.glyphicon-import
+                            input#desmos-url.form-control(type='text', placeholder='...or enter a URL to import a saved graph')
+                        input(type='submit', style='display: none;')
+                    .button-wrapper
+                        button#record-button.btn.btn-default.btn-lg(title='Record/Stop', data-toggle='tooltip', data-placement='bottom')
+                            span#record-icon.glyphicon.glyphicon-record
+            .col-md-4
+                .controls
+                    .preview.center-block
+                        img#preview-image(src='')
+                form.control-form.center-block
+                    .form-group
+                        label Width (px)
+                        input#width-input.form-control(type='text', value='200')
+                    .form-group
+                        label Height (px)
+                        input#height-input.form-control(type='text', value='200')
+                    .form-group
+                        label Frame Interval (sec)
+                        select#interval-select.form-control
+                            option 0.1
+                            option 0.2
+                            option 0.3
+                            option 0.4
+                            option 0.5
+                            option 0.6
+                            option 0.7
+                            option 0.8
+                            option 0.9
+                            option 1.0
+                .button-wrapper
+                    a#save-button.btn.btn-default.btn-lg.disabled(href='#', download='gifsmos.gif', title='Save Image', data-toggle='tooltip', data-placement='bottom')
+                        span#save-icon.glyphicon.glyphicon-floppy-disk

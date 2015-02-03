@@ -1,0 +1,22 @@
+{
+  "name": "gifsmos",
+  "version": "1.0.0",
+  "description": "Create animated GIFs from Desmos graphs.",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Yeah, there are no tests...because laziness.\" && exit 1",
+    "start": "node app.js"
+  },
+  "keywords": [
+    "Desmos",
+    "GIF"
+  ],
+  "author": "Chris Lusto",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.11.2",
+    "jade": "^1.9.1",
+    "path": "^0.11.14",
+    "serve-favicon": "^2.2.0"
+  }
+}

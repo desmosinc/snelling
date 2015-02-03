@@ -1,0 +1,20 @@
+doctype html
+html
+    
+    head
+        title GIFsmos | Animated graphing GIFs
+        meta(charset='utf-8', name='viewport', content='width=device-width initial-scale=1')
+        link(rel='stylesheet', href='/vendor/bootstrap/dist/css/bootstrap.min.css')
+        link(rel='stylesheet', href='/css/index.css')
+        link(rel='stylesheet', href='/css/about.css')
+        link(rel='stylesheet', href='/css/404.css')
+
+    body
+        include ./partials/navbar
+        block content
+
+    script(src='//code.jquery.com/jquery-2.1.3.min.js')
+    script(src='/vendor/bootstrap/dist/js/bootstrap.min.js')
+    script(src='//www.desmos.com/api/v0.4/calculator.js?apiKey=dcb31709b452b1cf9dc26972add0fda6')
+    script(src='/vendor/gifshot/gifshot.custom.min.js')
+    script(src='/js/application.js')
