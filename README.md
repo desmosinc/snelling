@@ -2,7 +2,7 @@ GIFsmos
 =======
 
 This is a little weekend project of mine to help all those folks who like sharing animated GIFs captured from
-their [Desmos](https://www.desmos.com/) graphs, but don't like going through the hastle of taking a bunch
+their [Desmos](https://www.desmos.com/) graphs, but don't like going through the hassle of taking a bunch
 of screenshots and then running them through a separate generator.  GIFsmos lets you do all the graphing
 (or graph importing) and manipulating and capturing and GIFifying in one place, with a simple UI.
 
