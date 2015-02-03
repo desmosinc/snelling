@@ -1,0 +1,12 @@
+extends ./layout
+
+block content
+    .jumbo-wrapper.container
+        .jumbotron
+            h1 About <span class="orange">GIFsmos</span>
+            p Got a mathy blog or website? Then you know that sometimes a static image just won't do. That's where <span class="orange">GIFsmos</span> comes in. Take any dynamic <a href="https://www.desmos.com/">Desmos</a> graph and GIF-ify it, like so:
+            img.img-rounded.center-block.demo-image(src='/images/curvature.gif')
+            p Start by creating a brand new graph, or import one that you've already got saved. (If you're not sure how to use the calculator, now's a good time to head over to <a href="https://www.desmos.com/">Desmos.com</a> and learn about an awesome tool.) Then just hit record, drag your parameters around, and hit stop.
+            p That's it. Each time you record you'll see a preview of your animated GIF, and whenever you're happy you can download the full-size version to paste up all over the Internet.  Enjoy!
+            p.button-paragraph: a#try-button.btn.btn-primary.btn-lg(href="/") Try it out
+            p.text-muted <span class="orange">GIFsmos</span> has the <a href="https://www.desmos.com/api/v0.4/docs/">Desmos API</a> as its beating heart, and uses the <a href="https://yahoo.github.io/gifshot/">GifShot</a> library from the <a href="https://www.yahoo.com/">Yahoo!</a> team to generate the animated images.  Crafted with love (and bugs) by <a href="https://twitter.com/lustomatical">Chris Lusto</a>, under the gracious tutelage of Desmos CEO <a href="https://twitter.com/eluberoff">Eli Luberoff</a> and card-carrying API wizard <a href="https://twitter.com/squishythinking">Jason Merrill</a>.  If you're so inclined, you can check out <a href='#'>the code on GitHub.</a>

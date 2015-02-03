@@ -1,0 +1,24 @@
+.jumbo-wrapper {
+    margin-top: 50px;
+}
+
+.button-paragraph {
+    text-align: center;
+}
+
+#try-button {
+    margin-bottom: 30px;
+    margin-top: 20px;
+}
+
+.jumbotron .text-muted {
+    font-size: 1.2em;
+}
+
+.demo-image {
+    margin-bottom: 15px;
+}
+
+.orange {
+    color: #fd9308;
+}
