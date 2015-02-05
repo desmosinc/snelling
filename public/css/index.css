@@ -18,12 +18,24 @@ body {
     margin-bottom: 20px;
 }
 
+#preview-image {
+    width: 200px;
+    height: 200px;
+}
+
 .control-form {
     width: 200px;
 }
 
-#record-button {
+#record-button,
+#snapshot-button,
+#reset-button {
     margin-top: 20px;
+}
+
+#snapshot-button,
+#reset-button {
+    margin-left: 10px;
 }
 
 .glyphicon-record,
@@ -35,17 +47,24 @@ body {
     color: #9bbb59;
 }
 
+.glyphicon-camera {
+    color: #4f81bd;
+}
+
 /*Fix a weird alignment issue with some of the glypicons*/
 .glyphicon-record,
 .glyphicon-floppy-disk,
-.glyphicon-floppy-save {
+.glyphicon-floppy-save,
+.glyphicon-refresh {
     top: 2px;
 }
 
 .glyphicon-floppy-save,
 .glyphicon-record,
 .glyphicon-floppy-disk,
-.glyphicon-stop {
+.glyphicon-stop,
+.glyphicon-camera,
+.glyphicon-refresh {
     font-size: 1.5em;
 }
 
@@ -94,7 +113,9 @@ label {
 }
 
 #save-button,
-#record-button {
+#record-button,
+#snapshot-button,
+#reset-button {
     width: 80px;
 
 }

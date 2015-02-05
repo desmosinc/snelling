@@ -13,6 +13,8 @@ $(function() {
     var $saveButton = $('#save-button');
     var $saveIcon = $('#save-icon');
     var $inputElements = $('input');
+    var $snapshotButton = $('#snapshot-button');
+    var $resetButton = $('#reset-button');
 
     // Initialize some variables
     var thumbFrames = [];
@@ -31,10 +33,14 @@ $(function() {
             reset();
             $inputElements.prop('disabled', true);
             $intervalSelect.prop('disabled', true);
+            $snapshotButton.prop('disabled', true);
+            $resetButton.prop('disabled', true);
         } else {
             createGIF();             
             $inputElements.prop('disabled', false);
             $intervalSelect.prop('disabled', false);
+            $snapshotButton.prop('disabled', false);
+            $resetButton.prop('disabled', false);
         }
         $recordIcon.toggleClass('glyphicon-record').toggleClass('glyphicon-stop');
     };
@@ -58,6 +64,7 @@ $(function() {
             'gifHeight': fullHeight
         }, function(obj) {
             if (!obj.error) {
+                $saveButton.attr('download', 'gifsmos.gif')
                 $saveButton[0].href = obj.image;
                 $saveButton.removeClass('disabled');
                 $saveIcon.removeClass('glyphicon-floppy-disk').addClass('glyphicon-floppy-save');
@@ -65,13 +72,22 @@ $(function() {
         });
     };
 
+    // Take a static snapshot of the graph state
+    var takeSnapshot = function() {
+        previewImage.src = calc.screenshot({width: 200, height: 200});
+        $saveButton[0].href = calc.screenshot({width: fullWidth, height: fullHeight});
+        $saveButton.attr('download', 'gifsmos.png');
+        $saveButton.removeClass('disabled');
+        $saveIcon.removeClass('glyphicon-floppy-disk').addClass('glyphicon-floppy-save');
+    };
+
     // Reset all the variables to their initial states
     var reset = function() {
-        oldState = JSON.stringify(calc.getState());
         thumbFrames = [];
         fullFrames = [];
         oldState = '';
         previewImage.src = '';
+        $saveButton[0].href = '';
         $saveButton.addClass('disabled');
         $saveIcon.removeClass('glyphicon-floppy-save').addClass('glyphicon-floppy-disk');
     };
@@ -114,20 +130,33 @@ $(function() {
     // Attach event handlers
     $('#record-button').click(setRecordingState);
     $('.import-button').click(importGraph);
+    $snapshotButton.click(takeSnapshot);
+    $resetButton.click(function() {
+        reset();
+        calc.setBlank();
+    });
+
     $importForm.submit(function(e) {
         e.preventDefault();
         importGraph();
         $desmosURL.blur();
     });
+
     $intervalSelect.change(function() {
         interval = parseFloat($(this).val());
         createGIF();
     });
+
     $widthInput.change(function() {
         fullWidth = parseInt($(this).val(), 10);
     });
+
     $heightInput.change(function() {
         fullHeight = parseInt($(this).val(), 10);
+    });
+
+    $('.btn').click(function() {
+        $(this).blur();
     });
 
     // Add tooltips to some UI elements
