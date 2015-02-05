@@ -33,16 +33,14 @@ $(function() {
             reset();
             $inputElements.prop('disabled', true);
             $intervalSelect.prop('disabled', true);
-            $snapshotButton.prop('disabled', true);
-            $resetButton.prop('disabled', true);
         } else {
             createGIF();             
             $inputElements.prop('disabled', false);
             $intervalSelect.prop('disabled', false);
-            $snapshotButton.prop('disabled', false);
-            $resetButton.prop('disabled', false);
         }
         $recordIcon.toggleClass('glyphicon-record').toggleClass('glyphicon-stop');
+        $snapshotButton.toggleClass('disabled');
+        $resetButton.toggleClass('disabled');
     };
 
     // Use the wonderful GifShot library to create the animated image
