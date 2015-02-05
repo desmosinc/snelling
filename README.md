@@ -27,4 +27,25 @@ script(src='//www.desmos.com/api/v0.4/calculator.js?apiKey=YOUR_KEY_GOES_HERE')
 
 That's it!
 
+Static Site Generation
+----------------------
+
+In the current incarnation of GIFsmos, everything important is happening on the client side, so there's really no reason to run/host it as a Node app.  That won't be true in the future, as I add more features, but for now there are some Grunt tasks configured to generate the app as a static site instead.  The tasks are pretty specific to the current directory structure, so if you do any significant rejiggering, you'll probably have to edit the `Gruntfile` as well.
+
+To create a `build/` folder ready for uploading, run:
+```
+grunt build
+```
+
+If you want to start a development server that will serve up the `build/` folder on port 3000, run:
+```
+grunt server
+```
+
+The default task both runs the build and sarts the dev server:
+```
+grunt
+```
+
+
 If you want to get in touch, I'm an enthusiastic [#MTBoS](https://twitter.com/search?q=%23mtbos&src=typd) participant [on Twitter](https://twitter.com/lustomatical).
