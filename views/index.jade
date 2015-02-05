@@ -25,7 +25,7 @@ block content
             .col-md-4
                 .controls
                     .preview.center-block
-                        img#preview-image(src='')
+                        img#preview-image(src='/images/preview.png')
                 form.control-form.center-block
                     .form-group
                         label Width (px)
@@ -49,3 +49,5 @@ block content
                 .button-wrapper
                     a#save-button.btn.btn-default.btn-lg.disabled(href='#', download='', title='Save Image', data-toggle='tooltip', data-placement='bottom')
                         span#save-icon.glyphicon.glyphicon-floppy-disk
+                    #processing
+                        p Processing full image... <span><img src='/images/processing_sm.gif'></span>

@@ -15,6 +15,7 @@ $(function() {
     var $inputElements = $('input');
     var $snapshotButton = $('#snapshot-button');
     var $resetButton = $('#reset-button');
+    var $processingText = $('#processing');
 
     // Initialize some variables
     var thumbFrames = [];
@@ -31,6 +32,7 @@ $(function() {
         recording = !recording;
         if (recording) {
             reset();
+            previewImage.src = '/images/recording.gif';
             $inputElements.prop('disabled', true);
             $intervalSelect.prop('disabled', true);
         } else {
@@ -47,6 +49,8 @@ $(function() {
     // http://yahoo.github.io/gifshot/
     var createGIF = function() {
         if (!thumbFrames.length) return;
+        previewImage.src = '/images/processing_lg.gif';
+        $processingText.show();
         gifshot.createGIF({
             'images': thumbFrames,
             'interval': interval
@@ -66,6 +70,7 @@ $(function() {
                 $saveButton[0].href = obj.image;
                 $saveButton.removeClass('disabled');
                 $saveIcon.removeClass('glyphicon-floppy-disk').addClass('glyphicon-floppy-save');
+                $processingText.hide();
             }
         });
     };
@@ -84,7 +89,7 @@ $(function() {
         thumbFrames = [];
         fullFrames = [];
         oldState = '';
-        previewImage.src = '';
+        previewImage.src = '/images/preview.png';
         $saveButton[0].href = '';
         $saveButton.addClass('disabled');
         $saveIcon.removeClass('glyphicon-floppy-save').addClass('glyphicon-floppy-disk');

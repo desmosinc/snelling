@@ -108,8 +108,14 @@ label {
     margin-bottom: 0;
 }
 
+#processing {
+    margin-bottom: 5px;
+    color: #fff;
+    display: none;
+}
+
 #save-button {
-    margin-bottom: 50px;
+    margin-bottom: 15px;
 }
 
 #save-button,
