@@ -45,12 +45,16 @@ $(function() {
         $resetButton.toggleClass('disabled');
     };
 
-    // Use the wonderful GifShot library to create the animated image
+    // Use the wonderful GifShot library to create the animated images
     // http://yahoo.github.io/gifshot/
     var createGIF = function() {
         if (!thumbFrames.length) return;
+
         previewImage.src = '/images/processing_lg.gif';
         $processingText.show();
+        $saveButton.addClass('disabled');
+        $saveIcon.removeClass('glyphicon-floppy-save').addClass('glyphicon-floppy-disk');
+
         gifshot.createGIF({
             'images': thumbFrames,
             'interval': interval
@@ -59,6 +63,7 @@ $(function() {
                 previewImage.src = obj.image;
             }
         });
+
         gifshot.createGIF({
             'images': fullFrames,
             'interval': interval,
