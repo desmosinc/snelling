@@ -82,6 +82,7 @@ $(function() {
         $saveButton.attr('download', 'gifsmos.png');
         $saveButton.removeClass('disabled');
         $saveIcon.removeClass('glyphicon-floppy-disk').addClass('glyphicon-floppy-save');
+        $processingText.hide();
     };
 
     // Reset all the variables to their initial states
@@ -93,6 +94,7 @@ $(function() {
         $saveButton[0].href = '';
         $saveButton.addClass('disabled');
         $saveIcon.removeClass('glyphicon-floppy-save').addClass('glyphicon-floppy-disk');
+        $processingText.hide();
     };
 
     // Alert the user when they try to import a bad URL
@@ -122,8 +124,12 @@ $(function() {
         if (recording) {
             var newState = JSON.stringify(calc.getState());
             if (newState !== oldState) {
-                thumbFrames.push(calc.screenshot({width: 200, height: 200}));
-                fullFrames.push(calc.screenshot({width: fullWidth, height: fullHeight}));
+                var thumbImage = document.createElement('img');
+                thumbImage.src = calc.screenshot({width: 200, height: 200});
+                thumbFrames.push(thumbImage);
+                var fullImage = document.createElement('img');
+                fullImage.src = calc.screenshot({width: fullWidth, height: fullHeight});
+                fullFrames.push(fullImage);
                 oldState = newState;
             }              
         }
