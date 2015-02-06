@@ -32,7 +32,7 @@ app.use(function(req, res, next) {
 });
 
 // Set the port based on the environment
-var port = Number(process.env.port || 3000);
+var port = Number(process.env.PORT || 3000);
 
 // Start the show
 app.listen(port, function() {
