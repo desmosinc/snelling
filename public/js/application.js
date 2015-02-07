@@ -34,14 +34,11 @@ $(function() {
             reset();
             previewImage.src = '/images/recording.gif';
             $inputElements.prop('disabled', true);
-            $intervalSelect.prop('disabled', true);
         } else {
             createGIF();             
             $inputElements.prop('disabled', false);
-            $intervalSelect.prop('disabled', false);
         }
         $recordIcon.toggleClass('glyphicon-record').toggleClass('glyphicon-stop');
-        $snapshotButton.toggleClass('disabled');
         $resetButton.toggleClass('disabled');
     };
 
@@ -78,16 +75,23 @@ $(function() {
                 $processingText.hide();
             }
         });
+
     };
 
-    // Take a static snapshot of the graph state
-    var takeSnapshot = function() {
-        previewImage.src = calc.screenshot({width: 200, height: 200});
-        $saveButton[0].href = calc.screenshot({width: fullWidth, height: fullHeight});
-        $saveButton.attr('download', 'gifsmos.png');
-        $saveButton.removeClass('disabled');
-        $saveIcon.removeClass('glyphicon-floppy-disk').addClass('glyphicon-floppy-save');
-        $processingText.hide();
+    // Take thumb and full-size screenshots and push them to the image arrays
+    var pushFrames = function() {
+        var thumbImage = document.createElement('img');
+        thumbImage.src = calc.screenshot({width: 200, height: 200});
+        thumbFrames.push(thumbImage);
+        var fullImage = document.createElement('img');
+        fullImage.src = calc.screenshot({width: fullWidth, height: fullHeight});
+        fullFrames.push(fullImage);
+    };
+
+    // Manually take a snapshot to add a single frame to the GIF
+    var addFrame = function() {
+        pushFrames();
+        if (!recording) createGIF();
     };
 
     // Reset all the variables to their initial states
@@ -129,12 +133,7 @@ $(function() {
         if (recording) {
             var newState = JSON.stringify(calc.getState());
             if (newState !== oldState) {
-                var thumbImage = document.createElement('img');
-                thumbImage.src = calc.screenshot({width: 200, height: 200});
-                thumbFrames.push(thumbImage);
-                var fullImage = document.createElement('img');
-                fullImage.src = calc.screenshot({width: fullWidth, height: fullHeight});
-                fullFrames.push(fullImage);
+                pushFrames();
                 oldState = newState;
             }              
         }
@@ -144,7 +143,7 @@ $(function() {
     // Attach event handlers
     $('#record-button').click(setRecordingState);
     $('.import-button').click(importGraph);
-    $snapshotButton.click(takeSnapshot);
+    $snapshotButton.click(addFrame);
     $resetButton.click(function() {
         reset();
         calc.setBlank();
@@ -158,7 +157,7 @@ $(function() {
 
     $intervalSelect.change(function() {
         interval = parseFloat($(this).val());
-        createGIF();
+        if (!recording) createGIF();
     });
 
     $widthInput.change(function() {
