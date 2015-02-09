@@ -21,7 +21,6 @@ $(function() {
     var thumbFrames = [];
     var fullFrames = [];
     var recording = false;
-    var oldState = '';
     var interval = 0.1;
     var fullWidth = 200;
     var fullHeight = 200;
@@ -31,10 +30,9 @@ $(function() {
     // If it's changed since the last check, push a new frame into the both frame arrays
     var poll = function() {
         if (recording) {
-            var newState = JSON.stringify(calc.getState());
-            if (newState !== oldState) {
+            var newThumb = calc.screenshot({width: 200, height: 200});
+            if (!thumbFrames.length || thumbFrames[thumbFrames.length - 1].src !== newThumb) {
                 pushFrames();
-                oldState = newState;
             }
             pollTimeout = setTimeout(poll, 1);
         }
@@ -114,7 +112,6 @@ $(function() {
     var reset = function() {
         thumbFrames = [];
         fullFrames = [];
-        oldState = '';
         previewImage.src = '/images/preview.png';
         $saveButton[0].href = '';
         $saveButton.addClass('disabled');
