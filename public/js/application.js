@@ -99,13 +99,17 @@ $(function() {
         thumbFrames.push(thumbImage);
         var fullImage = document.createElement('img');
         fullImage.src = calc.screenshot({width: fullWidth, height: fullHeight});
+
         fullFrames.push(fullImage);
     };
 
     // Manually take a snapshot to add a single frame to the GIF
     var addFrame = function() {
         pushFrames();
-        if (!recording) createGIF();
+        if (!recording) {
+            //for some reason, this needs to be in a timeout in firefox & safari
+            setTimeout(createGIF, 100);
+        }
     };
 
     // Reset all the variables to their initial states
