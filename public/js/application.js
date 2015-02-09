@@ -26,6 +26,20 @@ $(function() {
     var fullWidth = 200;
     var fullHeight = 200;
 
+    var pollTimeout;
+    // Continually query the graph state...
+    // If it's changed since the last check, push a new frame into the both frame arrays
+    var poll = function() {
+        if (recording) {
+            var newState = JSON.stringify(calc.getState());
+            if (newState !== oldState) {
+                pushFrames();
+                oldState = newState;
+            }
+            pollTimeout = setTimeout(poll, 1);
+        }
+    };
+
     // Toggle the recording state
     // If we're starting, reset everything...otherwise we're done, so make the GIF 
     var setRecordingState = function() {
@@ -34,8 +48,10 @@ $(function() {
             reset();
             previewImage.src = '/images/recording.gif';
             $inputElements.prop('disabled', true);
+            poll();
         } else {
-            createGIF();             
+            clearTimeout(pollTimeout);
+            createGIF();
             $inputElements.prop('disabled', false);
         }
         $recordIcon.toggleClass('glyphicon-record').toggleClass('glyphicon-stop');
@@ -127,19 +143,6 @@ $(function() {
         });
     };
 
-    // Continually query the graph state...
-    // If it's changed since the last check, push a new frame into the both frame arrays
-    var poll = function() {
-        if (recording) {
-            var newState = JSON.stringify(calc.getState());
-            if (newState !== oldState) {
-                pushFrames();
-                oldState = newState;
-            }
-        }
-        requestAnimationFrame(poll);
-    };
-
     // Attach event handlers
     $('#record-button').click(setRecordingState);
     $('.import-button').click(importGraph);
@@ -177,8 +180,4 @@ $(function() {
     // Add the Calculator instance to the page
     var calc = Desmos.Calculator($calculatorElt[0]);
     $loading.remove();
-
-    // Start polling
-    poll();
-
 });
