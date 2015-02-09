@@ -135,7 +135,7 @@ $(function() {
             if (newState !== oldState) {
                 pushFrames();
                 oldState = newState;
-            }              
+            }
         }
         requestAnimationFrame(poll);
     };
@@ -146,7 +146,6 @@ $(function() {
     $snapshotButton.click(addFrame);
     $resetButton.click(function() {
         reset();
-        calc.setBlank();
     });
 
     $importForm.submit(function(e) {
