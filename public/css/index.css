@@ -47,7 +47,7 @@ body {
     color: #9bbb59;
 }
 
-.glyphicon-camera {
+.glyphicon-plus {
     color: #4f81bd;
 }
 
@@ -63,7 +63,7 @@ body {
 .glyphicon-record,
 .glyphicon-floppy-disk,
 .glyphicon-stop,
-.glyphicon-camera,
+.glyphicon-plus,
 .glyphicon-refresh {
     font-size: 1.5em;
 }
