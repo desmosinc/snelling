@@ -21,10 +21,22 @@ $(function() {
     var thumbFrames = [];
     var fullFrames = [];
     var recording = false;
-    var oldState = '';
     var interval = 0.1;
     var fullWidth = 200;
     var fullHeight = 200;
+
+    var pollTimeout;
+    // Continually query the graph state...
+    // If it's changed since the last check, push a new frame into the both frame arrays
+    var poll = function() {
+        if (recording) {
+            var newThumb = calc.screenshot({width: 200, height: 200});
+            if (!thumbFrames.length || thumbFrames[thumbFrames.length - 1].src !== newThumb) {
+                pushFrames();
+            }
+            pollTimeout = setTimeout(poll, 1);
+        }
+    };
 
     // Toggle the recording state
     // If we're starting, reset everything...otherwise we're done, so make the GIF 
@@ -34,14 +46,13 @@ $(function() {
             reset();
             previewImage.src = '/images/recording.gif';
             $inputElements.prop('disabled', true);
-            $intervalSelect.prop('disabled', true);
+            poll();
         } else {
-            createGIF();             
+            clearTimeout(pollTimeout);
+            createGIF();
             $inputElements.prop('disabled', false);
-            $intervalSelect.prop('disabled', false);
         }
         $recordIcon.toggleClass('glyphicon-record').toggleClass('glyphicon-stop');
-        $snapshotButton.toggleClass('disabled');
         $resetButton.toggleClass('disabled');
     };
 
@@ -78,23 +89,33 @@ $(function() {
                 $processingText.hide();
             }
         });
+
     };
 
-    // Take a static snapshot of the graph state
-    var takeSnapshot = function() {
-        previewImage.src = calc.screenshot({width: 200, height: 200});
-        $saveButton[0].href = calc.screenshot({width: fullWidth, height: fullHeight});
-        $saveButton.attr('download', 'gifsmos.png');
-        $saveButton.removeClass('disabled');
-        $saveIcon.removeClass('glyphicon-floppy-disk').addClass('glyphicon-floppy-save');
-        $processingText.hide();
+    // Take thumb and full-size screenshots and push them to the image arrays
+    var pushFrames = function() {
+        var thumbImage = document.createElement('img');
+        thumbImage.src = calc.screenshot({width: 200, height: 200});
+        thumbFrames.push(thumbImage);
+        var fullImage = document.createElement('img');
+        fullImage.src = calc.screenshot({width: fullWidth, height: fullHeight});
+
+        fullFrames.push(fullImage);
+    };
+
+    // Manually take a snapshot to add a single frame to the GIF
+    var addFrame = function() {
+        pushFrames();
+        if (!recording) {
+            //for some reason, this needs to be in a timeout in firefox & safari
+            setTimeout(createGIF, 100);
+        }
     };
 
     // Reset all the variables to their initial states
     var reset = function() {
         thumbFrames = [];
         fullFrames = [];
-        oldState = '';
         previewImage.src = '/images/preview.png';
         $saveButton[0].href = '';
         $saveButton.addClass('disabled');
@@ -123,31 +144,12 @@ $(function() {
         });
     };
 
-    // Continually query the graph state...
-    // If it's changed since the last check, push a new frame into the both frame arrays
-    var poll = function() {
-        if (recording) {
-            var newState = JSON.stringify(calc.getState());
-            if (newState !== oldState) {
-                var thumbImage = document.createElement('img');
-                thumbImage.src = calc.screenshot({width: 200, height: 200});
-                thumbFrames.push(thumbImage);
-                var fullImage = document.createElement('img');
-                fullImage.src = calc.screenshot({width: fullWidth, height: fullHeight});
-                fullFrames.push(fullImage);
-                oldState = newState;
-            }              
-        }
-        requestAnimationFrame(poll);
-    };
-
     // Attach event handlers
     $('#record-button').click(setRecordingState);
     $('.import-button').click(importGraph);
-    $snapshotButton.click(takeSnapshot);
+    $snapshotButton.click(addFrame);
     $resetButton.click(function() {
         reset();
-        calc.setBlank();
     });
 
     $importForm.submit(function(e) {
@@ -158,7 +160,7 @@ $(function() {
 
     $intervalSelect.change(function() {
         interval = parseFloat($(this).val());
-        createGIF();
+        if (!recording) createGIF();
     });
 
     $widthInput.change(function() {
@@ -179,8 +181,4 @@ $(function() {
     // Add the Calculator instance to the page
     var calc = Desmos.Calculator($calculatorElt[0]);
     $loading.remove();
-
-    // Start polling
-    poll();
-
 });
