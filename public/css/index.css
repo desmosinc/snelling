@@ -38,7 +38,8 @@ body {
 }
 
 #snapshot-button,
-#reset-button {
+#reset-button,
+#save-button {
     margin-left: 10px;
 }
 
@@ -68,7 +69,8 @@ body {
 .glyphicon-floppy-disk,
 .glyphicon-stop,
 .glyphicon-camera,
-.glyphicon-refresh {
+.glyphicon-refresh,
+.glyphicon-scissors {
     font-size: 1.5em;
 }
 
@@ -118,14 +120,16 @@ label {
     display: none;
 }
 
-#save-button {
+#save-button,
+#trim-button {
     margin-bottom: 15px;
 }
 
 #save-button,
 #record-button,
 #snapshot-button,
-#reset-button {
+#reset-button,
+#trim-button {
     width: 80px;
 
 }

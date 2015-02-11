@@ -16,6 +16,7 @@ $(function() {
     var $snapshotButton = $('#snapshot-button');
     var $resetButton = $('#reset-button');
     var $processingText = $('#processing');
+    var $trimButton = $('#trim-button');
 
     // Initialize some variables
     var thumbFrames = [];
@@ -54,6 +55,7 @@ $(function() {
         $processingText.show();
         $saveButton.addClass('disabled');
         $saveIcon.removeClass('glyphicon-floppy-save').addClass('glyphicon-floppy-disk');
+        $trimButton.addClass('disabled');
 
         gifshot.createGIF({
             'images': thumbFrames,
@@ -75,6 +77,7 @@ $(function() {
                 $saveButton[0].href = obj.image;
                 $saveButton.removeClass('disabled');
                 $saveIcon.removeClass('glyphicon-floppy-disk').addClass('glyphicon-floppy-save');
+                $trimButton.removeClass('disabled');
                 $processingText.hide();
             }
         });
@@ -87,6 +90,7 @@ $(function() {
         $saveButton.attr('download', 'gifsmos.png');
         $saveButton.removeClass('disabled');
         $saveIcon.removeClass('glyphicon-floppy-disk').addClass('glyphicon-floppy-save');
+        $trimButton.removeClass('disabled');
         $processingText.hide();
     };
 
@@ -99,6 +103,7 @@ $(function() {
         $saveButton[0].href = '';
         $saveButton.addClass('disabled');
         $saveIcon.removeClass('glyphicon-floppy-save').addClass('glyphicon-floppy-disk');
+        $trimButton.addClass('disabled');
         $processingText.hide();
     };
 
