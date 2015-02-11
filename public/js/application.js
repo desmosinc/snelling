@@ -17,6 +17,7 @@ $(function() {
     var $resetButton = $('#reset-button');
     var $processingText = $('#processing');
     var $trimButton = $('#trim-button');
+    var $trimage = $('#trimage');
 
     // Initialize some variables
     var thumbFrames = [];
@@ -63,6 +64,8 @@ $(function() {
         if (!thumbFrames.length) return;
 
         previewImage.src = '/images/processing_lg.gif';
+        trimage.src = thumbFrames[0].src; 
+        trimScrubber.max(thumbFrames.length - 1);
         $processingText.show();
         rightButtonsOff();
 
@@ -191,4 +194,18 @@ $(function() {
     // Add the Calculator instance to the page
     var calc = Desmos.Calculator($calculatorElt[0]);
     $loading.remove();
+
+    // Add the slider to the modal
+    trimScrubber = new ScrubberView(); 
+    $("#trimScrubber").append(trimScrubber.elt);
+
+    trimScrubber.min(0).max(10).step(1).value(0);
+
+    //trimScrubber.thumb.style.background = DESMOS.COLORS.BLACK;
+    //trimScrubber.thumb.style.borderColor = DESMOS.COLORS.LIGHTBLACK;
+
+    trimScrubber.onValueChanged = function(val) {
+        trimage.src = thumbFrames[val].src; 
+    };
+
 });

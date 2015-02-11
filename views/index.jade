@@ -2,6 +2,7 @@ extends ./layout
 
 block styles
     link(rel='stylesheet', href='/css/index.css')
+    link(rel='stylesheet', href='/vendor/scrubber/scrubber.css')
 
 block content
     .container
@@ -62,7 +63,13 @@ block content
             .modal-dialog
                 .modal-content
                     .modal-header
-                        h4#trimModalLabel.modal-title Trim GIF
-                    .modal-body PUT STUFF HERE
+                        h4#trimModalLabel.modal-title Trim Frames From Your GIF
+                    .modal-body
+                        .row
+                            .col-xs-8 
+                                #trimScrubber
+                            .col-xs-4
+                                .preview.center-block
+                                    img#trimage(src='/images/preview.png')
                     .modal-footer
                         button.btn.btn-default(type="button" data-dismiss="modal") Close
