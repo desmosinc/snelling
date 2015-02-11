@@ -60,7 +60,8 @@ body {
 .glyphicon-record,
 .glyphicon-floppy-disk,
 .glyphicon-floppy-save,
-.glyphicon-refresh {
+.glyphicon-refresh,
+.glyphicon-scissors {
     top: 2px;
 }
 
@@ -132,4 +133,8 @@ label {
 #trim-button {
     width: 80px;
 
+}
+
+.modal-dialog {
+    width: 80%;
 }

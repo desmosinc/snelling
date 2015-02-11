@@ -50,9 +50,19 @@ block content
                             option 0.9
                             option 1.0
                 .button-wrapper
-                    button#trim-button.btn.btn-default.btn-lg.disabled(title='Trim', data-toggle='tooltip', data-placement='bottom')
+                    span(data-toggle="modal" data-target="#trimModal")
+                        button#trim-button.btn.btn-default.btn-lg.disabled(title='Trim', data-toggle='tooltip', data-placement='bottom')
                             span.glyphicon.glyphicon-scissors
                     a#save-button.btn.btn-default.btn-lg.disabled(href='#', download='', title='Save Image', data-toggle='tooltip', data-placement='bottom')
                         span#save-icon.glyphicon.glyphicon-floppy-disk
                     #processing
                         p Processing full image... <span><img src='/images/processing_sm.gif'></span>
+        //- modal
+        #trimModal.modal.fade(tabindex="-1" role="dialog" aria-labelledby="trimModalLabel" aria-hidden="true")
+            .modal-dialog
+                .modal-content
+                    .modal-header
+                        h4#trimModalLabel.modal-title Trim GIF
+                    .modal-body PUT STUFF HERE
+                    .modal-footer
+                        button.btn.btn-default(type="button" data-dismiss="modal") Close
