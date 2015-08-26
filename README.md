@@ -11,7 +11,7 @@ Get Hacking
 
 1. Make sure you have [node.js](http://nodejs.org/) installed.
 2. Clone this repo and navigate to the root directory.
-3. Install the dependencies with `npm install` (or maybe `sudo npm install` if you get complaints about permissions).
+3. Install the dependencies with `npm install`
 4. Run the app with `npm start`.
 5. Head over to `http://localhost:3000` in your favorite browser.
 
